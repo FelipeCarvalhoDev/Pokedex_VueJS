@@ -1,40 +1,47 @@
 <template>
-  <div>
-    {{ pokemons }}
+  <div class="pokedex">
+    <Card v-for="pokemon in pokemons" :key="pokemon.name" :pokemon="pokemon" />
   </div>
 </template>
 
 <script>
-import api from '../../api/api';
+import api from "../../api/api";
 
 export default {
-  name: 'Pokedex',
-  props: {
-    msg: String
+  name: "Pokedex",
+  components: {
+    Card: () => import("./Card.vue")
   },
-  
+
   data() {
     return {
       pokemons: []
-    }
+    };
   },
 
   methods: {
-    async getPokemon() {
-      await api.get("api/v2/pokemon").then();    
+    getPokemon() {
+      api.get("api/v2/pokemon/?limit=1&offset=0").then(({ data }) => {
+        this.pokemons = [...data.results];
+      });
     }
   },
 
-  async mounted() {
-    await this.getPokemon()
-    this.pokemons = this.getPokemon();
-    console.log(this.pokemons)
+  mounted() {
+    this.getPokemon();
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.pokedex {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  max-width: 90%;
+  justify-content: center;
+}
 h3 {
   margin: 40px 0 0;
 }

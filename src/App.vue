@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <img class="logo" alt="Pokédex" src="./assets/logo.png">
-    <Pokedex/>
+    <img src="./assets/logo.png" width="70%" alt="" />
+    <Pokedex />
   </div>
 </template>
 
 <script>
-import Pokedex from './components/Pokedex.vue'
+import Pokedex from "./components/Pokedex";
 
 export default {
-  name: 'App',
+  name: "App",
+
   components: {
     Pokedex
-  }
-}
+  },
+
+  data: () => ({
+    //
+  })
+};
 </script>
 
 <style>
@@ -26,11 +31,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .logo {
   max-width: 70%;
 }
-
 </style>
