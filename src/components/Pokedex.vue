@@ -1,5 +1,6 @@
 <template>
   <div class="pokedex">
+    <Filter :pokemon="pokemon" />
     <Card v-for="pokemon in pokemons" :key="pokemon.name" :pokemon="pokemon" />
   </div>
 </template>
@@ -10,7 +11,8 @@ import api from "../../api/api";
 export default {
   name: "Pokedex",
   components: {
-    Card: () => import("./Card.vue")
+    Card: () => import("./Card.vue"),
+    Filter: () => import("./Filter.vue")
   },
 
   data() {
@@ -21,7 +23,7 @@ export default {
 
   methods: {
     getPokemon() {
-      api.get("api/v2/pokemon/?limit=1&offset=0").then(({ data }) => {
+      api.get("api/v2/pokemon/?limit=3&offset=0").then(({ data }) => {
         this.pokemons = [...data.results];
       });
     }
@@ -33,7 +35,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .pokedex {
   display: flex;

@@ -26,7 +26,9 @@ export default {
 
   methods: {},
 
-  mounted() {}
+  mounted() {
+    console.log("Teste");
+  }
 };
 </script>
 

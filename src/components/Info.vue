@@ -7,17 +7,17 @@
       </v-btn>
     </v-card-title>
     <v-divider></v-divider>
+
     <v-card-text>
-      <strong>Evolução:</strong>
+      <strong>Peso:</strong>
       <br />
-      <span>|</span>
-      <span
-        class="capitalize"
-        v-for="evolution in pokemonEvolution.chain.evolves_to"
-        :key="evolution.species.name"
-      >
-        {{ evolution.species.name }} |
-      </span>
+      <span> {{ pokemonInfo.weight }}00 g </span>
+    </v-card-text>
+
+    <v-card-text>
+      <strong>Altura:</strong>
+      <br />
+      <span> {{ pokemonInfo.height }}0 cm </span>
     </v-card-text>
 
     <v-card-text>
@@ -55,10 +55,6 @@ export default {
     pokemonInfo: {
       type: Object,
       default: () => {}
-    },
-    pokemonEvolution: {
-      type: Object,
-      default: () => {}
     }
   },
   methods: {
@@ -67,8 +63,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.pokemonName);
-    console.log(this.pokemonEvolution);
+    console.log(this.pokemonInfo);
   }
 };
 </script>

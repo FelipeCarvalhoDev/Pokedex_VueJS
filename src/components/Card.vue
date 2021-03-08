@@ -46,7 +46,6 @@ export default {
   data() {
     return {
       pokemonInfo: {},
-      pokemonEvolution: {},
       dialog: false
     };
   },
@@ -56,25 +55,11 @@ export default {
       await api.get(this.pokemon.url).then(({ data }) => {
         this.pokemonInfo = data;
       });
-    },
-
-    getPokemonEvolution() {
-      const id = this.pokemon.url
-        .split("pokemon/")
-        .pop()
-        .slice(0, -1);
-      api
-        .get(`https://pokeapi.co/api/v2/evolution-chain/${id}/`)
-        .then(({ data }) => {
-          this.pokemonEvolution = data;
-          console.log(data);
-        });
     }
   },
 
   mounted() {
     this.getPokemonInfo();
-    this.getPokemonEvolution();
   }
 };
 </script>
