@@ -19,11 +19,7 @@
     >
 
     <v-dialog v-model="dialog">
-      <Info
-        @closeDialog="dialog = false"
-        :pokemonInfo="pokemonInfo"
-        :pokemonEvolution="pokemonEvolution"
-      />
+      <Info @closeDialog="dialog = false" :pokemonInfo="pokemonInfo" />
     </v-dialog>
   </v-card>
 </template>

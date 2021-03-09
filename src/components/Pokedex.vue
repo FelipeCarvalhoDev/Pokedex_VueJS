@@ -1,7 +1,22 @@
 <template>
   <div class="pokedex">
-    <Filter :pokemon="pokemon" />
-    <Card v-for="pokemon in pokemons" :key="pokemon.name" :pokemon="pokemon" />
+    <v-app>
+      <div class="filter">
+        <FilterPokemon
+          class="form"
+          @setInitialPokemon="setInitialPokemon"
+          @setFinalPokemon="setFinalPokemon"
+        />
+      </div>
+      <v-divider></v-divider>
+      <div class="results">
+        <Card
+          v-for="pokemon in pokemons"
+          :key="pokemon.name"
+          :pokemon="pokemon"
+        />
+      </div>
+    </v-app>
   </div>
 </template>
 
@@ -12,35 +27,65 @@ export default {
   name: "Pokedex",
   components: {
     Card: () => import("./Card.vue"),
-    Filter: () => import("./Filter.vue")
+    FilterPokemon: () => import("./FilterPokemon.vue")
   },
 
   data() {
     return {
-      pokemons: []
+      pokemons: [],
+      initialPokemon: 2,
+      finalPokemon: 5
     };
   },
 
   methods: {
+    setInitialPokemon(initial) {
+      console.log(initial);
+      this.initialPokemon = initial;
+    },
+    setFinalPokemon(final) {
+      console.log(final);
+      this.finalPokemon = final;
+    },
     getPokemon() {
-      api.get("api/v2/pokemon/?limit=3&offset=0").then(({ data }) => {
-        this.pokemons = [...data.results];
-      });
+      api
+        .get(
+          `api/v2/pokemon/?limit=${this.finalPokemon -
+            this.initialPokemon +
+            1}&offset=${this.initialPokemon - 1}`
+        )
+        .then(({ data }) => {
+          this.pokemons = [...data.results];
+        });
     }
   },
 
   mounted() {
     this.getPokemon();
+  },
+
+  watch: {
+    initialPokemon() {
+      this.getPokemon();
+    },
+    finalPokemon() {
+      this.getPokemon();
+    }
   }
 };
 </script>
 
 <style scoped>
+.v-application {
+  background: none !important;
+}
 .pokedex {
-  display: flex;
-  flex-wrap: wrap;
   margin: auto;
   max-width: 90%;
+}
+.results {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 h3 {
@@ -56,5 +101,8 @@ li {
 }
 a {
   color: #42b983;
+}
+hr {
+  margin: 20px 0 10px 0;
 }
 </style>
