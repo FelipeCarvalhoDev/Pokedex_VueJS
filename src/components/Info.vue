@@ -69,8 +69,9 @@ export default {
 </script>
 
 <style>
-.info {
-  text-align: left;
+.v-application .info {
+  background-color: white !important;
+  border: none !important;
 }
 .btn_close {
   margin-left: auto;

@@ -1,6 +1,13 @@
 <template>
   <v-card class="card" elevation="2" data-app>
-    <img :src="pokemonInfo.sprites.front_default" alt="" />
+    <div v-lazy-container="{ selector: 'img' }">
+      <img
+        :data-src="pokemonImg"
+        :data-loading="loadingImg"
+        :data-error="loadingImg"
+        alt=""
+      />
+    </div>
     <br />
     <h3 class="capitalize">#{{ pokemonInfo.id }} - {{ pokemon.name }}</h3>
     <v-divider></v-divider>
@@ -26,6 +33,7 @@
 
 <script>
 import api from "../../api/api";
+import loadingImg from "../assets/loading.gif";
 
 export default {
   name: "Card",
@@ -42,10 +50,16 @@ export default {
   data() {
     return {
       pokemonInfo: {},
-      dialog: false
+      dialog: false,
+      loadingImg
     };
   },
 
+  computed: {
+    pokemonImg() {
+      return this.pokemonInfo.sprites?.front_default;
+    }
+  },
   methods: {
     async getPokemonInfo() {
       await api.get(this.pokemon.url).then(({ data }) => {
@@ -88,5 +102,10 @@ export default {
 }
 hr {
   margin: 10px 0px;
+}
+.card img,
+img[lazy="loading"],
+img[lazy="error"] {
+  max-width: 100px;
 }
 </style>

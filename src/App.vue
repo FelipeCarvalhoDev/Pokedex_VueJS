@@ -37,4 +37,32 @@ body {
 .logo {
   max-width: 70%;
 }
+
+.v-application a {
+  color: black !important;
+}
+
+.page-item a,
+.page-item a:active,
+.page-item a:hover {
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+}
+.page-item a {
+  background-color: white;
+}
+.page-item.first .page-link {
+  border-radius: 15px 0px 0px 15px;
+}
+.page-item.last .page-link {
+  border-radius: 0px 15px 15px 0px;
+}
+.page-item.disabled .page-link {
+  pointer-events: none;
+}
+.page-item.active .page-link {
+  background-color: #ddd;
+}
 </style>

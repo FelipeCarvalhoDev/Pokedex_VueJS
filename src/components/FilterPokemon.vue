@@ -1,23 +1,17 @@
 <template>
   <v-form>
-    <v-text-field
-      label="Número Inicial"
-      v-model="initialPokemon"
-      @change="setInitialPokemon"
-    >
+    <v-text-field label="Número Inicial" v-model="initialPokemon">
     </v-text-field>
-    <v-text-field
-      label="Número Final"
-      v-model="finalPokemon"
-      @change="setFinalPokemon"
-    ></v-text-field>
+    <v-text-field label="Número Final" v-model="finalPokemon"></v-text-field>
     <v-select
-      v-model="selectedItem"
+      v-model="itemsPerPage"
       :items="items"
       label="Pokémons por página"
     ></v-select>
-    <v-select label="Visualização"></v-select>
-    <v-btn elevation="2" rounded class="btn_filter">Filtrar</v-btn>
+    <v-select :items="visualization" label="Visualização"></v-select>
+    <v-btn elevation="2" rounded class="btn_filter" @click="setFilter"
+      >Filtrar</v-btn
+    >
   </v-form>
 </template>
 
@@ -31,9 +25,10 @@ export default {
   data() {
     return {
       items: [10, 20, 30],
-      selectedItem: "",
-      initialPokemon: null,
-      finalPokemon: null
+      itemsPerPage: 10,
+      initialPokemon: 1,
+      finalPokemon: 10220,
+      visualization: ["Paginação", "Scroll"]
     };
   },
 
@@ -43,6 +38,14 @@ export default {
     },
     setFinalPokemon() {
       this.$emit("setFinalPokemon", this.finalPokemon);
+    },
+    setItemsPerPage() {
+      this.$emit("setItemsPerPage", this.itemsPerPage);
+    },
+    setFilter() {
+      this.setInitialPokemon();
+      this.setFinalPokemon();
+      this.setItemsPerPage();
     }
   },
 
